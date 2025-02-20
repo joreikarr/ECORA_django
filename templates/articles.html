@@ -1,0 +1,53 @@
+{% extends "base_secondary.html" %}
+{% load static %}
+{% load translation_filters %}
+
+{% block content %}
+    <section class="section hero v5">
+      <div class="w-layout-blockcontainer container-default w-container">
+        <div data-w-id="54e3581a-acf8-2a59-f595-a66d5f1756b1"  class="inner-container _756px center">
+          <div class="inner-container _500px---mbl center">
+            <div class="text-center">
+              <h1 class="display-8 mid">{% translate 'Еко холдинг' %} ECORA</h1>
+              <div class="inner-container _568px center">
+                <p class="paragraph-large mg-top-small">{% translate 'Під моїм керівництвом десять взаємопов&#x27;язаних підприємств працюють як одна згуртована екосистема, стимулюючи трансформаційні рішення, які покращують здоров&#x27;я та якість життя громад у всьому світі.' %}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mg-top-80px">
+          <div class="w-dyn-list">
+            <div role="list" class="grid-3-columns gap-row-48px _2-col-tablet w-dyn-items">
+                {% for article in articles %}
+              <div id="w-node-dd5d7786-dee1-223e-7b7c-c6b42801c690-0b974237" data-w-id="dd5d7786-dee1-223e-7b7c-c6b42801c690" style="opacity:1" role="listitem" class="w-dyn-item">
+                <a data-w-id="e555be0c-f8c5-e4c5-eec8-3b477cb30d77" href="{{ article.source_link }}" class="card service-item-v1 w-inline-block">
+                  <div class="z-index-1">
+                      <img src="{{ article.image.url }}" loading="lazy" alt="" height="150" sizes="(max-width: 479px) 100vw, (max-width: 767px) 92vw, (max-width: 991px) 44vw, (max-width: 1439px) 29vw, (max-width: 1919px) 30vw, 33vw" class="image-2">
+                    <div class="inner-container _500px---mbl">
+                      <div class="mg-top-small mg-bottom-small">
+                        <h2 class="card-heading display-5 mid">{{ article.translated.title }}</h2>
+                      </div>
+                      <p class="paragraph-large text-neutral-700">{{ article.translated.short_description }}</p>
+                    </div>
+                  </div>
+                  <div class="z-index-1">
+                    <div class="flex-horizontal space-between gap-medium---flex-wrap">
+                      <div class="link hover-none mid">
+                        <div>{% translate 'Дізнатися більше' %}</div>
+                        <div class="arrow-right"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bg-hover right"></div>
+                  <div class="bg-hover left"></div>
+                </a>
+              </div>
+                {% endfor %}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+{% endblock %}

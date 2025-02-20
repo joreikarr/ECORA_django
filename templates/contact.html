@@ -1,0 +1,85 @@
+{% extends "base_secondary.html" %}
+{% load static %}
+{% load translation_filters %}
+
+{% block title %}{% translate 'Звʼязатись' %}{% endblock %}
+
+{% block content %}
+<section class="section hero v17">
+  <div class="w-layout-blockcontainer container-default w-container">
+    <div class="w-layout-grid grid-2-columns v17-hero-grid">
+      <div data-w-id="1568b546-1fde-7092-00a6-d3d19893eee1" class="card contact-form-wrapper">
+        <div id="w-node-_1568b546-1fde-7092-00a6-d3d19893eee2-9893eee1" class="contact-form-block w-form">
+          <form id="contact-form" method="post">
+            {% csrf_token %}
+            <div class="w-layout-grid grid-form gap-default _1-col-mbl">
+              <div id="w-node-_1568b546-1fde-7092-00a6-d3d19893eee5-9893eee1"><label for="name">{% translate 'П.І.Б.' %}</label>
+                <input class="input transparent w-input" name="name" placeholder="{% translate 'напр. Джон Картер' %}" type="text" id="name" required>
+              </div>
+              <div id="w-node-_1568b546-1fde-7092-00a6-d3d19893eee9-9893eee1"><label for="email">{% translate 'Електронна пошта' %}</label>
+                <input class="input transparent w-input" name="email" placeholder="example@youremail.com" type="email" id="email" required>
+              </div>
+              <div id="w-node-_1568b546-1fde-7092-00a6-d3d19893eeed-9893eee1"><label for="phone">{% translate 'Телефон' %}</label>
+                <input class="input transparent w-input" name="phone" placeholder="(123) 456 - 7890" type="tel" id="phone" required>
+              </div>
+              <div id="w-node-_1568b546-1fde-7092-00a6-d3d19893eef1-9893eee1"><label for="company">{% translate 'Компанія' %}</label>
+                <input class="input transparent w-input" name="company" placeholder="{% translate 'напр. Facebook' %}" type="text" id="company">
+              </div>
+              <div id="w-node-_1568b546-1fde-7092-00a6-d3d19893eef5-9893eee1" class="text-area-wrapper"><label for="message">{% translate 'Повідомлення' %}</label>
+                <textarea id="message" name="message" placeholder="{% translate 'Напишіть своє повідомлення...' %}" required class="text-area transparent w-input"></textarea>
+              </div>
+              <div id="w-node-_1568b546-1fde-7092-00a6-d3d19893eef9-9893eee1" class="primary-button form-button-wrapper---light-mode">
+                <input type="submit" class="primary-button form-button large---alt w-button" value="{% translate 'Надіслати повідомлення' %}">
+                <div class="arrow-right text-light"></div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div id="w-node-fab54d27-4b65-e8e0-055b-60d30b0dce04-0b974235" data-w-id="fab54d27-4b65-e8e0-055b-60d30b0dce04"  class="card contact-links-right">
+        <div class="z-index-1">
+          <div class="inner-container _500px---mbl">
+            <div class="inner-container _600px---tablet">
+              <h1 class="display-8 mid">{% translate 'Звʼязатись' %}</h1>
+            </div>
+          </div>
+          <div class="mg-top-medium">
+            <div class="w-layout-grid grid-1-column contact-links-grid">
+               <a id="w-node-_0595f915-951d-cc31-381a-268c6a1bc15c-0b974235" data-w-id="0595f915-951d-cc31-381a-268c6a1bc15c" href="mailto:yesypchuk.expert@gmail.com" class="text-decoration-none w-inline-block">
+                <div class="w-layout-grid grid-auto---1fr _1-col-mbl gap-default">
+                     <div id="w-node-_29d26ad8-721c-6ea4-e06c-3e2893600bc8-0b974235" class="align-self-top">
+                  <div class="align-self-top"><img src="{% static 'images/envelope-icon-laboratory-x-webflow-template.svg' %}" alt="Envelope Icon" class="image-size _32px"></div>
+                     </div>
+                         <div>
+                    <div class="mg-bottom-tiny">
+                      <div class="display-3 mid text-neutral-600">{% translate 'Надішліть листа' %}</div>
+                    </div>
+                    <div class="text-break-all">
+                      <div class="card-heading display-3 mid">yesypchuk.expert@gmail.com</div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="divider mg-medium"></div>
+          <div class="display-5 text-titles">{% translate 'Слідкуйте за мною у соціальних медіа' %}</div>
+          <div class="mg-top-default">
+            <div class="social-media-flex">
+          <a href="https://www.facebook.com/oksana.yesypchuk" target="_blank" class="social-media-icon-wrapper _02 w-inline-block">
+            <div class="icon-font-social-media"></div>
+          </a>
+          </a>
+          <a href="https://www.instagram.com/oksana.yesypchuk/" target="_blank" class="social-media-icon-wrapper _02 w-inline-block">
+            <div class="icon-font-social-media"></div>
+          </a>
+        </div>
+          </div>
+        </div>
+          <div class="bg-hover left visible---alt"></div>
+            <div class="bg-hover right visible---alt"></div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
