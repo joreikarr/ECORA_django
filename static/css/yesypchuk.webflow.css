@@ -11618,3 +11618,252 @@ figcaption {
   font-style: normal;
   font-display: swap;
 }
+
+/* Обертка дропдауна */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Кнопка-дропдаун */
+.dropdown-toggle {
+    background: none;
+    border: none;
+    color: white; /* Подгони цвет под навбар */
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+/* Иконка стрелки */
+.dropdown-toggle .arrow-down {
+    margin-left: 8px;
+    font-size: 12px;
+}
+
+/* Скрытое меню */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 120px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    z-index: 1000;
+}
+
+/* Элементы меню */
+.dropdown-menu li {
+    list-style: none;
+}
+
+.dropdown-menu .dropdown-item {
+    background: none;
+    border: none;
+    color: #333;
+    width: 100%;
+    padding: 10px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* Наведение на кнопку (открытие дропдауна на ПК) */
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* Для мобилок: дропдаун открывается при клике */
+.dropdown-toggle:focus-within + .dropdown-menu,
+.dropdown-menu:focus-within {
+    display: block;
+}
+
+/* Поддержка мобилок */
+@media (max-width: 768px) {
+    .dropdown-menu {
+        position: static;
+        display: none;
+        width: 100%;
+        box-shadow: none;
+    }
+
+    .dropdown:hover .dropdown-menu,
+    .dropdown-toggle:focus-within + .dropdown-menu,
+    .dropdown-menu:focus-within {
+        display: block;
+    }
+
+}
+
+
+@media (max-width: 1024px) {
+    .dropdown-toggle {
+        color: black;
+    }
+
+    .dropdown-toggle .arrow-down {
+        color: black;
+    }
+
+
+}
+
+
+.dropdown-menu .dropdown-item {
+    background: none;
+    border: none;
+    color: #333;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+.dropdown-menu .dropdown-item:hover,
+.dropdown-menu .dropdown-item:focus {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: black;
+}
+
+
+.dropdown-menu {
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+
+.dropdown-menu {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+
+.dropdown-menu li {
+    padding: 0;
+    margin: 0;
+}
+
+
+.dropdown-menu .dropdown-item {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    display: block;
+}
+
+
+.dropdown-toggle {
+    padding-left: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* 📌 Фикс выравнивания дропдауна в бургер-меню */
+@media (max-width: 1024px) {
+
+
+    .dropdown-menu {
+        position: relative;
+        left: 0;
+        transform: none;
+        width: 100%; /* Сделаем ширину нормальной */
+        text-align: center;
+    }
+
+    .dropdown-menu .dropdown-item {
+        width: 100%;
+        padding: 12px 0; /* Чтоб текст не прилипал */
+        text-align: center;
+        display: block;
+    }
+}
+
+/* 📌 Дропдаун в тёмном режиме */
+.dropdown-dark .dropdown-toggle {
+    color: white;
+}
+
+.dropdown-dark .dropdown-menu {
+    background-color: #333;
+}
+
+.dropdown-dark .dropdown-item {
+    color: white;
+}
+
+.dropdown-dark .dropdown-item:hover,
+.dropdown-dark .dropdown-item:focus {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* 📌 Дропдаун в светлом режиме */
+.dropdown-light .dropdown-toggle {
+    color: black;
+}
+
+.dropdown-light .dropdown-menu {
+    background-color: white;
+}
+
+.dropdown-light .dropdown-item {
+    color: black;
+}
+
+.dropdown-light .dropdown-item:hover,
+.dropdown-light .dropdown-item:focus {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: black;
+}
+
+/* 📌 В бургер-меню всегда светлый стиль */
+@media (max-width: 1024px) {
+    .dropdown-dark,
+    .dropdown-light {
+        width: 100%;
+        text-align: center;
+    }
+
+    .dropdown-dark .dropdown-toggle,
+    .dropdown-light .dropdown-toggle {
+        width: 100%;
+        justify-content: center;
+        color: black; /* В бургер-меню всегда чёрный текст */
+    }
+
+    .dropdown-dark .dropdown-menu,
+    .dropdown-light .dropdown-menu {
+        position: relative;
+        left: 0;
+        transform: none;
+        width: 100%;
+        text-align: center;
+        background-color: white; /* Всегда белый фон в бургере */
+    }
+
+    .dropdown-dark .dropdown-item,
+    .dropdown-light .dropdown-item {
+        width: 100%;
+        padding: 12px 0;
+        text-align: center;
+        display: block;
+        color: black; /* Всегда чёрный текст в бургере */
+    }
+
+    .dropdown-dark .dropdown-item:hover,
+    .dropdown-light .dropdown-item:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}
+

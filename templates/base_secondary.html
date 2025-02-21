@@ -83,6 +83,29 @@
                         </a>
                       </div>
                     </li>
+                    <li class="link-nav-item dropdown dropdown-light">
+    <button class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+        <span>
+            {% for lang in languages %}
+                {% if lang.code == request.session.language %}
+                    {{ lang.name }}
+                {% endif %}
+            {% endfor %}
+        </span>
+        <div class="arrow-down">▼</div>
+    </button>
+    <ul class="dropdown-menu">
+        {% for lang in languages %}
+            <li>
+                <form method="post" action="{% url 'change_language' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="language" value="{{ lang.code }}">
+                    <button type="submit" class="dropdown-item">{{ lang.name }}</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</li>
 
 
 

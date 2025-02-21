@@ -8,7 +8,8 @@ def home(request):
     translated_initiatives = [
         {"id": i.id, "name": i.name, "logo": i.logo, "translated": i.get_translation(lang_code)} for i in initiatives
     ]
-    return render(request, 'home.html', {'initiatives': translated_initiatives})
+    languages = Language.objects.all()
+    return render(request, 'home.html', {'initiatives': translated_initiatives, 'languages':languages})
 
 
 def initiatives(request):
@@ -17,7 +18,8 @@ def initiatives(request):
     translated_initiatives = [
         {"id": i.id, "name": i.name, "logo": i.logo, "translated": i.get_translation(lang_code)} for i in initiatives
     ]
-    return render(request, 'initiatives.html', {'initiatives': translated_initiatives})
+    languages = Language.objects.all()
+    return render(request, 'initiatives.html', {'initiatives': translated_initiatives, 'languages':languages})
 
 
 def initiative_detail(request, initiative_id):
@@ -31,11 +33,13 @@ def initiative_detail(request, initiative_id):
         {"id": i.id, "name": i.name, "logo": i.logo, "translated": i.get_translation(lang_code)} for i in
         related_initiatives
     ]
-
+    languages = Language.objects.all()
     context = {
         'initiative': translated_data,
         'related_initiatives': translated_related,
+        'languages':languages,
     }
+
     return render(request, 'initiative_detail.html', context)
 
 
@@ -46,7 +50,8 @@ def articles(request):
         {"name": a.title, "image": a.image, "source_link": a.source_link,
          "translated": a.get_translation(lang_code)} for a in articles
     ]
-    return render(request, 'articles.html', {'articles': translated_articles})
+    languages = Language.objects.all()
+    return render(request, 'articles.html', {'articles': translated_articles, 'languages':languages})
 
 
 def change_language(request):
@@ -58,4 +63,5 @@ def change_language(request):
 
 
 def contact(request):
-    return render(request, 'contact.html', )
+    languages = Language.objects.all()
+    return render(request, 'contact.html', {'languages':languages} )
