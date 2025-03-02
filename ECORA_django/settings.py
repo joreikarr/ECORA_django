@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,7 +27,8 @@ SECRET_KEY = 'django-insecure--k!ggy*2nnrp!d90buuv7=l)og2k^xv58)2-k&$g19sby+mn62
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ecoraholding.com', 'www.ecoraholding.com', 'speeker.ecoraholding.com']
+
 
 
 # Application definition
@@ -45,6 +47,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'main.middleware.SubdomainMiddleware',  # новый middleware для субдомена
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -52,6 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'main.middleware.ForceAdminLanguageMiddleware',
 ]
+
 
 ROOT_URLCONF = 'ECORA_django.urls'
 
@@ -121,10 +125,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# Здесь Django будет искать статические файлы при collectstatic
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),  # Путь к папке static
+    os.path.join(BASE_DIR, "static"),
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # Каталог для collectstatic
+
+# Каталог, куда Django копирует все статики для раздачи
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

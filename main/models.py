@@ -49,7 +49,8 @@ class Initiative(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        self.create_translation_file()
+        if not self.translation_file:
+            self.create_translation_file()
 
     def get_translation(self, lang_code):
         if not self.translation_file:
@@ -116,7 +117,8 @@ class Article(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        self.create_translation_file()
+        if not self.translation_file:
+            self.create_translation_file()
 
     def get_translation(self, lang_code):
         if not self.translation_file:
@@ -163,3 +165,70 @@ class Article(models.Model):
         # Сохраняем путь к файлу в модели
         self.translation_file = f"translations/articles/{self.id}.json"
         super().save(update_fields=["translation_file"])
+
+
+class Video(models.Model):
+    file = models.FileField(upload_to="videos/files/", verbose_name="Видео файл")
+    short_description = models.TextField(verbose_name="Краткое описание")
+    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена")
+    translation_file = models.FileField(upload_to="translations/videos/", blank=True, null=True,
+                                        verbose_name="Файл перевода")
+
+    class Meta:
+        verbose_name = "Відео"
+        verbose_name_plural = "Відео"
+
+    def __str__(self):
+        return self.short_description[:50]
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        # Если файл перевода еще не создан, создаем его
+        if not self.translation_file:
+            self.create_translation_file()
+
+    def create_translation_file(self):
+        """Генерирует JSON-файл переводов для видео"""
+        videos_dir = os.path.join(settings.MEDIA_ROOT, "translations/videos")
+        os.makedirs(videos_dir, exist_ok=True)
+        file_path = os.path.join(videos_dir, f"{self.id}.json")
+
+        languages = Language.objects.all()
+        translations = {"languages": [lang.code for lang in languages]}
+        # Заполняем перевод по умолчанию (украинский)
+        translations["uk"] = {
+            "short_description": self.short_description,
+            "price": str(self.price),  # приводим к строке для JSON
+        }
+        # Для остальных языков оставляем пустые строки
+        for lang in languages:
+            if lang.code != "uk":
+                translations.setdefault(lang.code, {
+                    "short_description": "",
+                    "price": "",
+                })
+
+        # Записываем файл перевода
+        with open(file_path, 'w', encoding='utf-8') as f:
+            json.dump(translations, f, ensure_ascii=False, indent=4)
+
+        # Сохраняем путь к файлу перевода в поле модели
+        self.translation_file = f"translations/videos/{self.id}.json"
+        super().save(update_fields=["translation_file"])
+
+    def get_translation(self, lang_code):
+        if not self.translation_file:
+            return {
+                "short_description": self.short_description,
+                "price": str(self.price),
+            }
+
+        file_path = os.path.join(settings.MEDIA_ROOT, self.translation_file.name)
+        with open(file_path, 'r', encoding='utf-8') as f:
+            translations = json.load(f)
+
+        if lang_code in translations:
+            return translations[lang_code]
+        return translations["uk"]
+
+

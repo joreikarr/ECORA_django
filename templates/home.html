@@ -34,14 +34,14 @@
         </div>
       </div>
     </section>
-    <section class="section top-bottom-100px">
+   <section class="section top-bottom-100px">
       <div class="w-layout-blockcontainer container-default w-container">
         <div class="inner-container _900px-tablet center">
           <div class="inner-container _400px---mbl center">
             <div class="inner-container _350px---mbp center">
               <div class="inner-container _1158px center">
                 <div data-w-id="f5ff7c12-9bb6-3689-aa64-8ed2e5a5a3ff" style="-webkit-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="w-layout-grid grid-auto logo-stat">
-                  <div id="w-node-_1f677a23-a4a0-6e9e-016d-969da2f78384-0b9741be" class="flex-horizontal"><img src="images/Logo_2_2_RESONSLAB-ratio-png.webp" loading="eager" alt=""></div>
+                  <div id="w-node-_1f677a23-a4a0-6e9e-016d-969da2f78384-0b9741be" class="flex-horizontal"><img src="{% static 'images/logo_blue_svg_1.svg' %}" loading="eager" alt=""></div>
                   <div class="flex-horizontal"><img src="{% static 'images/GENDOSE-Pharm-Logo-bold.png' %}" loading="eager" alt=""></div>
                   <div class="flex-horizontal"><img src="{% static 'images/Biosens-1-ratio-png.webp' %}" loading="eager" alt=""></div>
                   <div class="flex-horizontal"><img src="{% static 'images/Naturel-1-ratio-png.webp' %}" loading="eager" alt=""></div>
@@ -54,6 +54,7 @@
         </div>
       </div>
     </section>
+
     <section id="Learn-more" class="section overflow-hidden">
       <div class="w-layout-blockcontainer container-default w-container">
         <div data-w-id="beec0104-5703-5e2b-d68b-51be83e343d8" class="divider-page-wrapper">
@@ -72,37 +73,45 @@
         <div class="mg-top-48px">
           <div data-delay="2500" data-animation="slide" class="slider-wrapper buttons-bottom w-slider" data-autoplay="true" data-easing="ease-out-quint" style="opacity:0" data-hide-arrows="true" data-disable-swipe="false" data-w-id="25280ac2-8c3e-6827-e952-13ed569219e3" data-autoplay-limit="0" data-nav-spacing="3" data-duration="4000" data-infinite="false">
             <div class="slider-mask v1 w-slider-mask">
-                {% for initiave in initiatives %}
-              <div class="mg-right-default w-slide">
-                <div class="w-dyn-list">
-                  <div role="list" class="w-dyn-items">
-                    <div role="listitem" class="w-dyn-item">
-                      <a data-w-id="e555be0c-f8c5-e4c5-eec8-3b477cb30d77" href="{% url 'initiative_detail' initiave.id %}" class="card service-item-v1 w-inline-block">
-                        <div class="z-index-1">
+               {% for initiative in initiatives %}
+    <div class="mg-right-default w-slide">
+        <div class="w-dyn-list">
+            <div role="list" class="w-dyn-items">
+                <div role="listitem" class="w-dyn-item" style="height: 450px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;">
+                    <a data-w-id="e555be0c-f8c5-e4c5-eec8-3b477cb30d77"
+                       href="{% url 'initiative_detail' initiative.id %}"
+                       class="card service-item-v1 w-inline-block">
 
-                          <div class="display-2 mid text-secondary-100">{{ initiave.translated.type }}</div>
-                            <img src="{{ initiave.logo.url }}" height="100" class="image-size service-item-icon">
-                          <div class="mg-top-small mg-bottom-small">
-                            <h3 class="card-heading display-5 mid">{{ initiave.name }}</h3>
-                          </div>
-                          <p class="paragraph-large text-neutral-700">{{ initiave.translated.short_description }}</p>
-                        </div>
-                        <div class="z-index-1">
-                          <div class="flex-horizontal space-between gap-medium---flex-wrap">
-                            <div class="link hover-none mid">
-                              <div>{% translate 'Дізнатись більше' %}</div>
-                              <div class="arrow-right"></div>
+                        <div class="z-index-1" style="flex-grow: 1;">
+                            <div class="display-2 mid text-secondary-100">{{ initiative.translated.type }}</div>
+                            <img src="{{ initiative.logo.url }}" height="100" class="image-size service-item-icon">
+                            <div class="mg-top-small mg-bottom-small">
+                                <h3 class="card-heading display-5 mid">{{ initiative.name }}</h3>
                             </div>
-                          </div>
+                            <p class="paragraph-large text-neutral-700" style="max-height: 100px; overflow: hidden; text-overflow: ellipsis;">
+                                {{ initiative.translated.short_description }}
+                            </p>
                         </div>
+
+                        <div class="z-index-1">
+                            <div class="flex-horizontal space-between gap-medium---flex-wrap">
+                                <div class="link hover-none mid">
+                                    <div>{% translate 'Дізнатись більше' %}</div>
+                                    <div class="arrow-right"></div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="bg-hover right"></div>
                         <div class="bg-hover left"></div>
-                      </a>
-                    </div>
-                  </div>
+                    </a>
                 </div>
-              </div>
-                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+
             </div>
             <div class="secondary-button-icon slider-button left---01 w-slider-arrow-left">
               <div class="w-icon-slider-left"></div>
@@ -206,7 +215,7 @@
             </div>
           </div>
           <div id="w-node-_32ac1f00-5679-ab92-30df-86fb13174de4-0b9741be" data-w-id="32ac1f00-5679-ab92-30df-86fb13174de4" style="-webkit-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 10%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0">
-            <h2 class="display-7 mid">Зв&#x27;яжіться</h2>
+            <h2 class="display-7 mid">{% translate 'Звʼяжіться' %}</h2>
             <div class="mg-top-small">
               <div class="inner-container _570px">
                 <p class="paragraph-large">{% translate 'Дізнайтеся, як спільна робота може створити майбутнє для всіх нас.' %}</p>

@@ -1,0 +1,52 @@
+{% extends "base_secondary.html" %}
+{% load static %}
+{% load translation_filters %}
+
+{% block content %}
+    <section class="section hero v5">
+      <div class="w-layout-blockcontainer container-default w-container">
+        <div data-w-id="video-header" class="inner-container _756px center">
+          <div class="inner-container _500px---mbl center">
+            <div class="text-center">
+              <h1 class="display-8 mid">{% translate 'Відео спікера' %}</h1>
+              <div class="inner-container _568px center">
+                <p class="paragraph-large mg-top-small">
+                  {% translate 'Знайдіть відео виступів спікера, що підходять для вашого заходу.' %}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mg-top-80px">
+          <div class="w-dyn-list">
+            <div role="list" class="grid-3-columns gap-row-48px _2-col-tablet w-dyn-items">
+              {% for video in videos %}
+              <div id="w-node-{{ video.id }}-unique" style="opacity:1" role="listitem" class="w-dyn-item">
+                <div class="card service-item-v1">
+                  <div class="z-index-1">
+                    <video controls class="video-embed" width="100%" height="auto">
+                      <source src="{{ video.file.url }}" type="video/mp4">
+                      {% translate 'Ваш браузер не підтримує відео.' %}
+                    </video>
+                    <div class="inner-container _500px---mbl">
+                      <div class="mg-top-small mg-bottom-small">
+                        <h2 class="card-heading display-5 mid">
+                          {{ video.translation_data.short_description }}
+                        </h2>
+                      </div>
+                      <p class="paragraph-large text-neutral-700">
+                            {{ video.translation_data.price }} {% translate 'грн' %}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="bg-hover right"></div>
+                  <div class="bg-hover left"></div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}

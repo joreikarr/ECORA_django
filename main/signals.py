@@ -1,6 +1,6 @@
 from django.db.models.signals import post_migrate, post_save
 from django.dispatch import receiver
-from .models import Language, Initiative, Article, StaticTranslationFile
+from .models import Language, Initiative, Article, StaticTranslationFile, Video
 import os
 import json
 from django.conf import settings
@@ -68,7 +68,11 @@ def create_static_translation_file(sender, instance, created, **kwargs):
             "Дізнатися більше": "",
             "Під моїм керівництвом десять взаємопов&#x27;язаних підприємств працюють як одна згуртована екосистема, стимулюючи трансформаційні рішення, які покращують здоров&#x27;я та якість життя громад у всьому світі.": "",
             "Еко холдинг": "",
+            "Відео спікер": "",
+            "Знайдіть відео виступів спікера, що підходять для вашого заходу.": "",
+            "Ваш браузер не підтримує відео.": "",
             "Ця сторінка поки пуста": ""
+
         }
 
         # Структура файла
@@ -132,5 +136,20 @@ def update_translation_files(sender, instance, **kwargs):
                 }
 
             # Перезаписываем файл
+            with open(file_path, 'w', encoding='utf-8') as f:
+                json.dump(translations, f, ensure_ascii=False, indent=4)
+
+    for video in Video.objects.all():
+        file_path = os.path.join(settings.MEDIA_ROOT, f"translations/videos/{video.id}.json")
+        if os.path.exists(file_path):
+            with open(file_path, 'r', encoding='utf-8') as f:
+                translations = json.load(f)
+            if instance.code not in translations["languages"]:
+                translations["languages"].append(instance.code)
+            if instance.code not in translations:
+                translations[instance.code] = {
+                    "short_description": "",
+                    "price": ""
+                }
             with open(file_path, 'w', encoding='utf-8') as f:
                 json.dump(translations, f, ensure_ascii=False, indent=4)
