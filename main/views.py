@@ -7,22 +7,23 @@ from .models import Initiative, Video, Language
 
 def home(request):
     lang_code = request.session.get('language', 'uk')
+    initiatives = Initiative.objects.all()
+    translated_initiatives = [
+        {"id": i.id, "name": i.name, "logo": i.logo, "translated": i.get_translation(lang_code)}
+        for i in initiatives
+    ]
+    return render(request, 'home.html',
+                  {'initiatives': translated_initiatives, 'languages': Language.objects.all()})
 
-    if getattr(request, 'subdomain', None) == 'speeker':
-        videos = Video.objects.all()
-        translated_videos = [
-            {"id": v.id, "file": v.file, "translation_data": v.get_translation(lang_code)}
-            for v in videos
-        ]
-        return render(request, 'speeker_home.html', {'videos': translated_videos, 'languages': Language.objects.all()})
-    else:
-        initiatives = Initiative.objects.all()
-        translated_initiatives = [
-            {"id": i.id, "name": i.name, "logo": i.logo, "translated": i.get_translation(lang_code)}
-            for i in initiatives
-        ]
-        return render(request, 'home.html',
-                      {'initiatives': translated_initiatives, 'languages': Language.objects.all()})
+
+def speeker_home(request):
+    lang_code = request.session.get('language', 'uk')
+    videos = Video.objects.all()
+    translated_videos = [
+        {"id": v.id, "file": v.file, "translation_data": v.get_translation(lang_code)}
+        for v in videos
+    ]
+    return render(request, 'speeker_home.html', {'videos': translated_videos, 'languages': Language.objects.all()})
 
 
 def initiatives(request):
