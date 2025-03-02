@@ -97,3 +97,34 @@ class ArticleAdmin(admin.ModelAdmin):
             response = HttpResponse(f.read(), content_type='application/json')
             response['Content-Disposition'] = f'attachment; filename={os.path.basename(file_path)}'
             return response
+
+
+
+@admin.register(Video)
+class VideoAdmin(admin.ModelAdmin):
+    list_display = ("short_description", "price", "download_translation")
+
+    def download_translation(self, obj):
+        if obj.translation_file:
+            return format_html(
+                '<a href="{}">Завантажити</a>',
+                f'/admin/main/video/download/{obj.id}/'
+            )
+        return "Немає файлу"
+    download_translation.short_description = "Завантажити файл"
+
+    def get_urls(self):
+        from django.urls import path
+        urls = super().get_urls()
+        custom_urls = [
+            path('download/<int:obj_id>/', self.download_translation_file, name="download_video_translation"),
+        ]
+        return custom_urls + urls
+
+    def download_translation_file(self, request, obj_id):
+        obj = Video.objects.get(id=obj_id)
+        file_path = os.path.join(settings.MEDIA_ROOT, obj.translation_file.name)
+        with open(file_path, 'rb') as f:
+            response = HttpResponse(f.read(), content_type='application/json')
+            response['Content-Disposition'] = f'attachment; filename={os.path.basename(file_path)}'
+            return response
